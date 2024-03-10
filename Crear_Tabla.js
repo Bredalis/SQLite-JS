@@ -1,30 +1,14 @@
 
-// Modulo
-const sqlite3 = require('sqlite3').verbose();
+const CRUD = require('./CRUD.js');
 
-// Conectar a la base de datos
-const db = new sqlite3.Database('BBDD.db');
-
-// Crear tabla
-const instruccion = `
+const consulta = `
   CREATE TABLE IF NOT EXISTS Usuarios(
-    ID INTERGER PRIMARY KEY, 
-    Nombre TEXT, 
-    Email TEXT)`;
+    ID INTEGER PRIMARY KEY AUTOINCREMENT, Nombre TEXT, 
+    Email TEXT
+)`;
 
-// Ejecutar el comando para crear la tabla
-db.serialize(() => {
-  db.run(instruccion, (err) => {
-
-    if (err){
-      console.error('Error al crear la tabla:', err.message);
-    
-    }else{
-      console.log('Tabla 'Usuarios' creada correctamente');
-    }  
-
-  });
-});
-
-// Cerrar base de datos
-db.close();
+const crear_tabla = new CRUD('BBDD.db');
+crear_tabla.conectar_bbdd();
+crear_tabla.instruccion(consulta);
+crear_tabla.ejecucion_ci();
+crear_tabla.cerrar_bbdd();

@@ -1,15 +1,10 @@
 
-// Modulo
-const sqlite3 = require('sqlite3').verbose();
+const CRUD = require('./CRUD.js');
 
-// Conectar a la bbdd
-const db = new sqlite3.Database('BBDD.db');
+const consulta = `DELETE FROM Usuarios`;
 
-// Borrar datos
-const instruccion = `DELETE FROM Usuarios`;
-
-// Ejecucion
-db.run(instruccion);
-
-// Cerrar bbdd
-db.close();
+const borrar_datos = new CRUD('BBDD.db');
+borrar_datos.conectar_bbdd();
+borrar_datos.instruccion(consulta);
+borrar_datos.ejecucion_ba();
+borrar_datos.cerrar_bbdd();

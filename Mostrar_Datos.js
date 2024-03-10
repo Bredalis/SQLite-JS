@@ -1,23 +1,10 @@
 
-// Modulo
-const sqlite3 = require('sqlite3').verbose();
+const CRUD = require('./CRUD.js');
 
-// Conectar a la bbdd
-const db = new sqlite3.Database('BBDD.db');
+const consulta = `SELECT * FROM Usuarios`;
 
-// Mostrar datos
-const instruccion = `SELECT * FROM Usuarios`;
-
-// Ejecucion
-db.all(instruccion, (err, rows) => {
-	if (err){
-		console.error('Hubo un error:', err.message);
-		return;
-	}
-
-	// Resultado
-	console.log('Datos:', rows);
-});
-
-// Cerrar bbdd
-db.close();
+const mostrar_datos = new CRUD('BBDD.db');
+mostrar_datos.conectar_bbdd();
+mostrar_datos.instruccion(consulta);
+mostrar_datos.ejecucion_mostrar();
+mostrar_datos.cerrar_bbdd();

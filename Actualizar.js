@@ -1,17 +1,12 @@
 
-// Modulo
-const sqlite3 = require('sqlite3').verbose();
+const CRUD = require('./CRUD.js');
 
-// Conectar a la bbdd
-const db = new sqlite3.Database('BBDD.db');
-
-// Actualizar datos
-const instruccion = ` 
+const consulta = `
 	UPDATE Usuarios SET Nombre = 'Bienvenida' WHERE ID = 1	
 `;
 
-// Ejecucion
-db.run(instruccion);
-
-// Cerrar bbdd
-db.close();
+const actualizar_datos = new CRUD('BBDD.db');
+actualizar_datos.conectar_bbdd();
+actualizar_datos.instruccion(consulta);
+actualizar_datos.ejecucion_ba();
+actualizar_datos.cerrar_bbdd();
